@@ -8,6 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { PostsService } from './posts.service';
+import { PostModel } from './post.model';
 
 class CreatePostDto {
   @ApiProperty({ description: '标题' })
@@ -19,14 +21,14 @@ class CreatePostDto {
 @Controller('posts')
 @ApiTags('文章')
 export class PostsController {
+  constructor(private readonly postsService: PostsService) {}
+
   @Get()
   @ApiOperation({
     summary: '文章列表',
   })
-  index() {
-    return {
-      id: 1,
-    };
+  async index() {
+    return await PostModel.find();
   }
 
   @Get(':id')
@@ -35,8 +37,8 @@ export class PostsController {
   })
   detail(@Param('id') id: string) {
     return {
-      msg: 'ss',
       id,
+      data: this.postsService.returnTestPost(),
     };
   }
 
