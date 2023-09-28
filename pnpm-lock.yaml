@@ -46,6 +46,12 @@ devDependencies:
   '@types/jest':
     specifier: ^29.5.2
     version: registry.npmmirror.com/@types/jest@29.5.5
+  '@types/mongoose':
+    specifier: ^5.11.97
+    version: registry.npmmirror.com/@types/mongoose@5.11.97
+  '@types/multer':
+    specifier: ^1.4.7
+    version: registry.npmmirror.com/@types/multer@1.4.7
   '@types/node':
     specifier: ^20.3.1
     version: registry.npmmirror.com/@types/node@20.6.2
@@ -1046,7 +1052,6 @@ packages:
     requiresBuild: true
     dependencies:
       sparse-bitfield: registry.npmmirror.com/sparse-bitfield@3.0.3
-    dev: false
     optional: true
 
   registry.npmmirror.com/@nestjs/cli@10.1.17:
@@ -1561,6 +1566,30 @@ packages:
     version: 3.0.1
     dev: true
 
+  registry.npmmirror.com/@types/mongoose@5.11.97:
+    resolution: {integrity: sha512-cqwOVYT3qXyLiGw7ueU2kX9noE8DPGRY6z8eUxudhXY8NZ7DMKYAxyZkLSevGfhCX3dO/AoX5/SO9lAzfjon0Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/mongoose/-/mongoose-5.11.97.tgz}
+    name: '@types/mongoose'
+    version: 5.11.97
+    deprecated: Mongoose publishes its own types, so you do not need to install this package.
+    dependencies:
+      mongoose: registry.npmmirror.com/mongoose@7.5.2
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-providers'
+      - '@mongodb-js/zstd'
+      - kerberos
+      - mongodb-client-encryption
+      - snappy
+      - supports-color
+    dev: true
+
+  registry.npmmirror.com/@types/multer@1.4.7:
+    resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/multer/-/multer-1.4.7.tgz}
+    name: '@types/multer'
+    version: 1.4.7
+    dependencies:
+      '@types/express': registry.npmmirror.com/@types/express@4.17.17
+    dev: true
+
   registry.npmmirror.com/@types/node@20.6.2:
     resolution: {integrity: sha512-Y+/1vGBHV/cYk6OI1Na/LHzwnlNCAfU3ZNGrc1LdRe/LAIbdDPTTv/HU3M7yXN448aTVDq3eKRm2cg7iKLb8gw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/node/-/node-20.6.2.tgz}
     name: '@types/node'
@@ -1636,7 +1665,6 @@ packages:
     resolution: {integrity: sha512-xTE1E+YF4aWPJJeUzaZI5DRntlkY3+BCVJi0axFptnjGmAoWxkyREIh/XMrfxVLejwQxMCfDXdICo0VLxThrog==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/webidl-conversions/-/webidl-conversions-7.0.0.tgz}
     name: '@types/webidl-conversions'
     version: 7.0.0
-    dev: false
 
   registry.npmmirror.com/@types/whatwg-url@8.2.2:
     resolution: {integrity: sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/whatwg-url/-/whatwg-url-8.2.2.tgz}
@@ -1645,7 +1673,6 @@ packages:
     dependencies:
       '@types/node': registry.npmmirror.com/@types/node@20.6.2
       '@types/webidl-conversions': registry.npmmirror.com/@types/webidl-conversions@7.0.0
-    dev: false
 
   registry.npmmirror.com/@types/yargs-parser@21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/yargs-parser/-/yargs-parser-21.0.0.tgz}
@@ -2398,7 +2425,6 @@ packages:
     name: bson
     version: 5.5.0
     engines: {node: '>=14.20.1'}
-    dev: false
 
   registry.npmmirror.com/buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/buffer-from/-/buffer-from-1.1.2.tgz}
@@ -3938,7 +3964,6 @@ packages:
     resolution: {integrity: sha512-WKa+XuLG1A1R0UWhl2+1XQSi+fZWMsYKffMZTTYsiZaUD8k2yDAj5atimTUD2TZkyCkNEeYE5NhFZmupOGtjYQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ip/-/ip-2.0.0.tgz}
     name: ip
     version: 2.0.0
-    dev: false
 
   registry.npmmirror.com/ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz}
@@ -4733,7 +4758,6 @@ packages:
     name: kareem
     version: 2.5.1
     engines: {node: '>=12.0.0'}
-    dev: false
 
   registry.npmmirror.com/keyv@4.5.3:
     resolution: {integrity: sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/keyv/-/keyv-4.5.3.tgz}
@@ -4923,7 +4947,6 @@ packages:
     name: memory-pager
     version: 1.5.0
     requiresBuild: true
-    dev: false
     optional: true
 
   registry.npmmirror.com/merge-descriptors@1.0.1:
@@ -5054,7 +5077,6 @@ packages:
     dependencies:
       '@types/whatwg-url': registry.npmmirror.com/@types/whatwg-url@8.2.2
       whatwg-url: registry.npmmirror.com/whatwg-url@11.0.0
-    dev: false
 
   registry.npmmirror.com/mongodb@5.8.1:
     resolution: {integrity: sha512-wKyh4kZvm6NrCPH8AxyzXm3JBoEf4Xulo0aUWh3hCgwgYJxyQ1KLST86ZZaSWdj6/kxYUA3+YZuyADCE61CMSg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mongodb/-/mongodb-5.8.1.tgz}
@@ -5084,7 +5106,6 @@ packages:
       socks: registry.npmmirror.com/socks@2.7.1
     optionalDependencies:
       '@mongodb-js/saslprep': registry.npmmirror.com/@mongodb-js/saslprep@1.1.0
-    dev: false
 
   registry.npmmirror.com/mongoose@7.5.2:
     resolution: {integrity: sha512-yEkmI1jfiog7QUvMWz3eB/XoA3/5DrVvSz+z3V5hnq8VtZIHC7ujEV0RKzRXwr8QNMOs+OTB7+aK7R/N/V3yXA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mongoose/-/mongoose-7.5.2.tgz}
@@ -5106,14 +5127,12 @@ packages:
       - mongodb-client-encryption
       - snappy
       - supports-color
-    dev: false
 
   registry.npmmirror.com/mpath@0.9.0:
     resolution: {integrity: sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mpath/-/mpath-0.9.0.tgz}
     name: mpath
     version: 0.9.0
     engines: {node: '>=4.0.0'}
-    dev: false
 
   registry.npmmirror.com/mquery@5.0.0:
     resolution: {integrity: sha512-iQMncpmEK8R8ncT8HJGsGc9Dsp8xcgYMVSbs5jgnm1lFHTZqMJTUWTDx1LBO8+mK3tPNZWFLBghQEIOULSTHZg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mquery/-/mquery-5.0.0.tgz}
@@ -5124,7 +5143,6 @@ packages:
       debug: registry.npmmirror.com/debug@4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   registry.npmmirror.com/ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ms/-/ms-2.0.0.tgz}
@@ -5967,7 +5985,6 @@ packages:
     resolution: {integrity: sha512-Wv6BjQ5zbhW7VFefWusVP33T/EM0vYikCaQ2qR8yULbsilAT8/wQaXvuQ3ptGLpoKx+lihJE3y2UTgKDyyNHZQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sift/-/sift-16.0.1.tgz}
     name: sift
     version: 16.0.1
-    dev: false
 
   registry.npmmirror.com/signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/signal-exit/-/signal-exit-3.0.7.tgz}
@@ -5993,7 +6010,6 @@ packages:
     name: smart-buffer
     version: 4.2.0
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
-    dev: false
 
   registry.npmmirror.com/socks@2.7.1:
     resolution: {integrity: sha512-7maUZy1N7uo6+WVEX6psASxtNlKaNVMlGQKkG/63nEDdLOWNbiUMoLK7X4uYoLhQstau72mLgfEWcXcwsaHbYQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/socks/-/socks-2.7.1.tgz}
@@ -6003,7 +6019,6 @@ packages:
     dependencies:
       ip: registry.npmmirror.com/ip@2.0.0
       smart-buffer: registry.npmmirror.com/smart-buffer@4.2.0
-    dev: false
 
   registry.npmmirror.com/source-map-support@0.5.13:
     resolution: {integrity: sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/source-map-support/-/source-map-support-0.5.13.tgz}
@@ -6044,7 +6059,6 @@ packages:
     requiresBuild: true
     dependencies:
       memory-pager: registry.npmmirror.com/memory-pager@1.5.0
-    dev: false
     optional: true
 
   registry.npmmirror.com/sprintf-js@1.0.3:
@@ -6368,7 +6382,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       punycode: registry.npmmirror.com/punycode@2.3.0
-    dev: false
 
   registry.npmmirror.com/tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tree-kill/-/tree-kill-1.2.2.tgz}
@@ -6685,7 +6698,6 @@ packages:
     name: webidl-conversions
     version: 7.0.0
     engines: {node: '>=12'}
-    dev: false
 
   registry.npmmirror.com/webpack-node-externals@3.0.0:
     resolution: {integrity: sha512-LnL6Z3GGDPht/AigwRh2dvL9PQPFQ8skEpVrWZXLWBYmqcaojHNN0onvHzie6rq7EWKrrBfPYqNEzTJgiwEQDQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-node-externals/-/webpack-node-externals-3.0.0.tgz}
@@ -6751,7 +6763,6 @@ packages:
     dependencies:
       tr46: registry.npmmirror.com/tr46@3.0.0
       webidl-conversions: registry.npmmirror.com/webidl-conversions@7.0.0
-    dev: false
 
   registry.npmmirror.com/whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/whatwg-url/-/whatwg-url-5.0.0.tgz}

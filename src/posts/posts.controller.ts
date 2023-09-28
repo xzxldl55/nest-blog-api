@@ -4,72 +4,63 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
-import { PostModel } from './post.model';
-
-class CreatePostDto {
-  @ApiProperty({ description: '标题' })
-  title: string;
-  @ApiProperty({ description: '内容' })
-  content: string;
-}
+import { PostModel, Post as PostType } from './post.model';
 
 @Controller('posts')
-@ApiTags('文章')
+@ApiTags('诗歌')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
   @ApiOperation({
-    summary: '文章列表',
+    summary: '诗歌列表',
   })
-  async index() {
-    return await PostModel.find();
+  async index(
+    @Query('pageNumber', ParseIntPipe) pageNumber: number,
+    @Query('pageSize', ParseIntPipe) pageSize?: number,
+  ) {
+    pageSize = !pageSize && pageSize !== 0 ? 20 : pageSize;
+    const skip = pageSize * (pageNumber - 1);
+    return await PostModel.find().skip(skip).limit(pageSize);
   }
 
-  @Get(':id')
+  @Get(':title')
   @ApiOperation({
-    summary: '获取文章详情',
+    summary: '获取诗歌详情',
   })
-  detail(@Param('id') id: string) {
+  async detail(@Param('title') title: string) {
     return {
-      id,
-      data: this.postsService.returnTestPost(),
+      data: await this.postsService.returnTestPost(title),
     };
   }
 
   @Post(':userid')
   @ApiOperation({
-    summary: '创建文章',
+    summary: '创建诗歌',
   })
-  create(@Body() data: CreatePostDto, @Param('userid') userid: string) {
-    console.log(data);
-    return {
-      success: true,
-      list: [],
-      userid,
-      data,
-    };
+  create(@Body() data: PostType, @Param('userid') userid: string) {
+    return this.postsService.createPost(data, userid);
   }
 
   @Put(':id')
-  @ApiOperation({ summary: '编辑文章' })
-  update(@Body() data: CreatePostDto, @Param('id') id: string) {
+  @ApiOperation({ summary: '编辑诗歌' })
+  update(@Body() data: PostType, @Param('id') id: string) {
     return {
       id,
       data,
     };
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: '删除文章' })
-  deleteBlog(@Param('id') id: string) {
-    return {
-      id,
-    };
+  @Delete(':title')
+  @ApiOperation({ summary: '删除诗歌' })
+  deleteBlog(@Param('title') title: string) {
+    return this.postsService.deletePost(title);
   }
 }

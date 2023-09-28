@@ -1,13 +1,27 @@
 import { Injectable } from '@nestjs/common';
-
-const testPosts = {
-  title: '测试的',
-  content: '嘻嘻哈哈',
-};
+import { Post, PostModel } from './post.model';
 
 @Injectable()
 export class PostsService {
-  returnTestPost(): typeof testPosts {
-    return testPosts;
+  async returnTestPost(title: string) {
+    const result = await PostModel.findOne({ title }).exec();
+    return result;
+  }
+
+  async deletePost(title: string) {
+    const result = await PostModel.findOneAndRemove({ title });
+    console.log(result);
+    return !!result;
+  }
+
+  async createPost(data: Post, userid: string) {
+    const result = await PostModel.insertMany([data]);
+
+    console.log(result);
+
+    return {
+      status: !!result.length,
+      userid,
+    };
   }
 }

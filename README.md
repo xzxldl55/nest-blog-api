@@ -193,6 +193,21 @@ await app.listen(3000);
 | @Head    | HEAD                                             |
 | @All     | 用于定义一个用于处理所有 HTTP 请求方法的处理程序 |
 
+PS: 注意使用 url param 参数的接口（如，@Get(':id')）一定要放到同类型接口最后面，因为 Nest 是从上到下顺序匹配的，如果将 `@Get('id')` 放到 `@Get('getXXX')` 前面，则无法调用到 `@Get('getXXX')`
+
+使用 Nest 起后端服务，实现了 5 种 http/https 的数据传输方式：
+
+其中前两种是 url 中的：
+
+- `url param`： url 中的参数，Nest 中使用 @Param 来取
+- `query`：url 中 ? 后的字符串，Nest 中使用 @Query 来取
+
+后三种是 body 中的：
+
+- `form urlencoded`： 类似 query 字符串，只不过是放在 body 中。Nest 中使用 @Body 来取，axios 中需要指定 content type 为 application/x-www-form-urlencoded，并且对数据用 qs 或者 query-string 库做 url encode
+- `json`: json 格式的数据。Nest 中使用 @Body 来取，axios 中不需要单独指定 content type，axios 内部会处理。
+- `form data`：通过 ----- 作为 boundary 分隔的数据。主要用于传输文件，Nest 中要使用 FilesInterceptor 来处理其中的 binary 字段，用 @UseInterceptors 来启用，其余字段用 @Body 来取。axios 中需要指定 content type 为 multipart/form-data，并且用 FormData 对象来封装传输的内容。
+
 #### 路由通配符
 
 *路由同样支持模式匹配。例如，星号被用作通配符，将匹配任何字符组合。*
@@ -399,6 +414,137 @@ async findOne(
 }
 ```
 
+### 10. IOC 控制反转
+
+后端系统有很多的对象，这些对象之间的关系错综复杂，如果手动创建并组装对象比较麻烦，所以后端框架一般都提供了 IOC 机制。
+
+IOC 机制是在 class 上标识哪些是可以被注入的，它的依赖是什么，然后从入口开始扫描这些对象和依赖，自动创建和组装对象。
+
+Nest 里通过 @Controller 声明可以被注入的 controller，通过 @Injectable 声明可以被注入也可以注入别的对象的 provider，然后在 @Module 声明的模块里引入。
+
+并且 Nest 还提供了 Module 和 Module 之间的 import，可以引入别的模块的 provider 来注入（只有别的模块 exports 了的 provider 才可以使用）。
+
+虽然 Nest 这套实现了 IOC 的模块机制看起来繁琐，但是却解决了后端系统的对象依赖关系错综复杂的痛点问题。
+
+### 11. 代码调试
+
+调试模式 `node --inspect-bre xxx.js`
+
+复杂的代码需要用断点调试查看调用栈和作用域，也就是代码的执行路线，然后单步执行。
+
+node 代码可以加上 --inspect 或者 --inspect-brk 启动调试 ws 服务，然后用 Chrome DevTools 或者 vscode debugger 连上来调试。
+
+nest 项目的调试也是 node 调试，可以使用 nest start --debug 启动 ws 服务，然后在 vscode 里 attach 上来调试，也可以添加个调试配置来运行 npm run start:dev。
+
+nest 项目最方便的调试方式还是在 VSCode 里添加 npm run start:dev 的调试配置。
+
+此外，我们还理解了 logpoint、条件断点、异常断点等断点类型。
+
+学会了 nest 项目的调试，就可以直接在代码里打断点了。
+
+### 12. 全局模块
+
+NestJS 中通过 exports 导出本模块的可分享服务，再使用 import 导入模块以共享服务，如下：
+
+```ts
+// AModule
+@Module({
+  controllers: [AController],
+  providers: [AService],
+  exports: [AService] // 将 AService 作为可共享服务
+})
+export default class AModule {};
+```
+
+```ts
+// BModule
+@Module({
+  controllers: [BController],
+  providers: [BService],
+  imports: [AModule] // 导入 A 模块，这样我们就能够在 B 模块中注入 AService 了
+})
+export default class BModule {};
+// BController
+@Controller('B')
+export class PostsController {
+  constructor(private readonly AService: AService) {} // 在 BController 中注入 AService
+  ...
+}
+// BService
+@Injectable()
+export class AppService {
+  constructor(private readonly AService: AService) {} // 也可在 BService 中注入 AService
+}
+```
+
+而如果 `AService` 在很多个模块都需要使用的话，每一次 imports 就会显得较为烦琐，此时可以将 A 模块使用`@Global()`设为全局模块，这样其他模块则不再需要导入
+```ts
+// AModule
+@Global()
+@Module({
+  controllers: [AController],
+  providers: [AService],
+  exports: [AService] // 将 AService 作为可共享服务
+})
+export default class AModule {};
+```
+
+*不过全局模块还是尽量少用，不然注入的很多 provider 都不知道来源，会降低代码的可维护性。*
+
+## 13. 生命周期
+
+触发顺序都是：先子后父，先深度遍历进去，再一个个触发退出来
+
+> Controllers -> Providers -> Module
+
+### 启动时
+onModuleInit、onApplicationBootstrap
+
+### 销毁时
+onModuleDestroy、beforeApplicationShutdown、onApplicationShutdown
+
+在定义模块/Controller/Provider时可以实现它
+
+```ts
+@Controller()
+export default class AController implements onModuleInit, onApplicationBootstrap {
+  ...
+
+  // 支持异步
+  async onModuleInit() {
+    // do something
+  },
+
+  onApplicationBootstrap() {
+    // do something
+  }
+}
+```
+
+PS: 可以在模块内应用 `import { ModuleRef } from '@nestjs/core'` 获取当前模块对象，在模块对象上通过 token 获取到 provider
+
+```ts
+...
+// 先注入
+constructor(private moduleRef: ModuleRef) {}
+
+onApplicationShutdown() {
+  const XService = this.moduleRef.get<XService>(XService);
+
+  // do something
+}
+```
+
+### 14. AOP
+
+AOP 的好处是可以把一些通用逻辑分离到切面中，保持业务逻辑的纯粹性，这样切面逻辑可以复用，还可以动态的增删。
+
+像 Express 的中间件的洋葱圈模型也是一种 AOP 的实现。
+
+而 Nest 实现 AOP 的方式更多，一共有五种，包括 Middleware、Guard、Pipe、Interceptor、ExceptionFilter：
+
+#### 1）Middleware
+
 ## 架构组织
 
 博客系统API：
@@ -408,3 +554,4 @@ async findOne(
 2. 文章模块
 
 3. 评论模块
+
