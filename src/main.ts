@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as mongoose from 'mongoose';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { RxInterceptor } from './rx.interceptor';
 
 async function bootstrap() {
   mongoose.connect('mongodb://127.0.0.1:27017/nest-blog-api');
@@ -23,6 +24,8 @@ async function bootstrap() {
 
   // 设置静态文件目录支持 --> /public 目录下文件可以使用 /static 路由来进行访问
   app.useStaticAssets('public', { prefix: '/static' });
+
+  app.useGlobalInterceptors(new RxInterceptor());
 
   await app.listen(4766);
 }

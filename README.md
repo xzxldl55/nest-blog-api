@@ -19,7 +19,7 @@
 
 
 
-实际上，每个模块都是一个**共享模块**。一旦创建就能被任意模块重复使用。假设我们将在几个模块之间共享 `CatsService` 实例。 我们需要把 `CatsService` 放到 `exports` 数组中，如下所示：
+实际上，每个模块都是一个**共享模块**。一旦创建就能被任意模块重复使用。假设我们将在几个模块之间共享 `CatsService` 实例。 我们需要把 `CatsService` 放到 `exports` 数组中，如下所示: 
 
 ```ts
 // cats.module.ts
@@ -90,7 +90,7 @@ export default class XXXControllers {
 
 *中间件是在路由处理程序 **之前** 调用的函数。 中间件函数可以访问请求和响应对象，以及应用程序请求响应周期中的 `next()` 中间件函数。 `next()` 中间件函数通常由名为 `next` 的变量表示。*
 
-`NestJS`的中间件实际上等价于`express`的中间件：
+`NestJS`的中间件实际上等价于`express`的中间件: 
 
 - 执行任何代码。
 - 对请求和响应对象进行更改。
@@ -98,7 +98,7 @@ export default class XXXControllers {
 - 调用堆栈中的下一个中间件函数。
 - 如果当前的中间件函数没有结束请求-响应周期, 它必须调用 `next()` 将控制传递给下一个中间件函数。否则, 请求将被挂起。
 
-`NestJS`中使用`@Injectable`装饰器来声明一个中间件，这个中间件类/函数，必须实现`NestMiddleware`接口，eg：
+`NestJS`中使用`@Injectable`装饰器来声明一个中间件，这个中间件类/函数，必须实现`NestMiddleware`接口，eg: 
 
 ```ts
 // log.middleware.ts
@@ -193,20 +193,20 @@ await app.listen(3000);
 | @Head    | HEAD                                             |
 | @All     | 用于定义一个用于处理所有 HTTP 请求方法的处理程序 |
 
-PS: 注意使用 url param 参数的接口（如，@Get(':id')）一定要放到同类型接口最后面，因为 Nest 是从上到下顺序匹配的，如果将 `@Get('id')` 放到 `@Get('getXXX')` 前面，则无法调用到 `@Get('getXXX')`
+PS: 注意使用 url param 参数的接口（如`@Get`':id')）一定要放到同类型接口最后面，因为 Nest 是从上到下顺序匹配的，如果将 `@Get('id')` 放到 `@Get('getXXX')` 前面，则无法调用到 `@Get('getXXX')`
 
-使用 Nest 起后端服务，实现了 5 种 http/https 的数据传输方式：
+使用 Nest 起后端服务，实现了 5 种 http/https 的数据传输方式: 
 
-其中前两种是 url 中的：
+其中前两种是 url 中的: 
 
-- `url param`： url 中的参数，Nest 中使用 @Param 来取
-- `query`：url 中 ? 后的字符串，Nest 中使用 @Query 来取
+- `url param`:  url 中的参数，Nest 中使用`@Param`来取
+- `query`: url 中 ? 后的字符串，Nest 中使用`@Query`来取
 
-后三种是 body 中的：
+后三种是 body 中的: 
 
-- `form urlencoded`： 类似 query 字符串，只不过是放在 body 中。Nest 中使用 @Body 来取，axios 中需要指定 content type 为 application/x-www-form-urlencoded，并且对数据用 qs 或者 query-string 库做 url encode
-- `json`: json 格式的数据。Nest 中使用 @Body 来取，axios 中不需要单独指定 content type，axios 内部会处理。
-- `form data`：通过 ----- 作为 boundary 分隔的数据。主要用于传输文件，Nest 中要使用 FilesInterceptor 来处理其中的 binary 字段，用 @UseInterceptors 来启用，其余字段用 @Body 来取。axios 中需要指定 content type 为 multipart/form-data，并且用 FormData 对象来封装传输的内容。
+- `form urlencoded`:  类似 query 字符串，只不过是放在 body 中。Nest 中使用`@Body`来取，axios 中需要指定 content type 为 application/x-www-form-urlencoded，并且对数据用 qs 或者 query-string 库做 url encode
+- `json`: json 格式的数据。Nest 中使用`@Body`来取，axios 中不需要单独指定 content type，axios 内部会处理。
+- `form data`: 通过 ----- 作为 boundary 分隔的数据。主要用于传输文件，Nest 中要使用 FilesInterceptor 来处理其中的 binary 字段，用`@UseInterceptors`来启用，其余字段用`@Body`来取。axios 中需要指定 content type 为 multipart/form-data，并且用 FormData 对象来封装传输的内容。
 
 #### 路由通配符
 
@@ -237,7 +237,7 @@ findAll() {
 
 
 
-### 6. HTTP状态码装饰器 @HttpCode(code: number)
+### 6. HTTP状态码装饰器 `@HttpCode(code: number)`
 
 默认情况下，响应的**状态码**总是默认为 **200**，除了 POST 请求（默认响应状态码为 **201**），我们可以通过在处理函数外添加 `@HttpCode（...）` 装饰器来轻松更改此行为。
 
@@ -249,7 +249,7 @@ create() {
 }
 ```
 
-### 7. 路由重定向 @Redirect(url: string, code?: number)
+### 7. 路由重定向 `@Redirect(url: string, code?: number)`
 
 ### 8. 异常过滤器
 
@@ -264,7 +264,7 @@ create() {
 }
 ```
 
-如下，我们硬编码一个错误的发生：
+如下，我们硬编码一个错误的发生: 
 
 ```ts
 @Get()
@@ -273,7 +273,7 @@ async findAll() {
 }
 ```
 
-最终输出到客户端则是更友好的响应：
+最终输出到客户端则是更友好的响应: 
 
 ```json
 {
@@ -286,7 +286,7 @@ async findAll() {
 
 #### 内置异常
 
-为了减少样板代码，Nest 提供了一系列继承自核心异常 `HttpException` 的可用异常。所有这些都可以在 `@nestjs/common`包中找到：
+为了减少样板代码，Nest 提供了一系列继承自核心异常 `HttpException` 的可用异常。所有这些都可以在 `@nestjs/common`包中找到: 
 
 - `BadRequestException`
 - `UnauthorizedException`
@@ -334,7 +334,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 }
 ```
 
-**使用异常过滤器**：现在可以使用 `@UseFilters()` 将上面定义好的异常过滤器绑定到对应 `Controller` 上去
+**使用异常过滤器**: 现在可以使用 `@UseFilters()` 将上面定义好的异常过滤器绑定到对应 `Controller` 上去
 
 ```ts
 // xxx.controller.ts
@@ -345,7 +345,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 }
 ```
 
-根据调用装饰器的不同位置，可以定义过滤器的适用范围：
+根据调用装饰器的不同位置，可以定义过滤器的适用范围: 
 
 1. 某个方法，即如上述
 2. 整个控制器
@@ -376,14 +376,14 @@ bootstrap();
 
 管道有两个典型的应用场景:
 
-- **转换**：管道将输入数据转换为所需的数据输出(例如，将字符串转换为整数)
-- **验证**：对输入数据进行验证，如果验证成功继续传递; 验证失败则抛出异常
+- **转换**: 管道将输入数据转换为所需的数据输出(例如，将字符串转换为整数)
+- **验证**: 对输入数据进行验证，如果验证成功继续传递; 验证失败则抛出异常
 
 
 
 #### 内置管道
 
-`Nest` 自带九个开箱即用的管道，即：
+`Nest` 自带九个开箱即用的管道，即: 
 
 - `ValidationPipe`
 - `DefaultValuePipe`
@@ -395,7 +395,7 @@ bootstrap();
 - `ParseEnumPipe`
 - `ParseFilePipe`
 
-**使用管道**： `Parse*Pipe`
+**使用管道**:  `Parse*Pipe`
 
 ```typescript
 // 将自动在函数执行前将 id 参数转换成 integer --> 当无法被转换时，将抛出异常 Validation failed (numeric string is expected)
@@ -444,7 +444,7 @@ nest 项目最方便的调试方式还是在 VSCode 里添加 npm run start:dev 
 
 ### 12. 全局模块
 
-NestJS 中通过 exports 导出本模块的可分享服务，再使用 import 导入模块以共享服务，如下：
+NestJS 中通过 exports 导出本模块的可分享服务，再使用 import 导入模块以共享服务，如下: 
 
 ```ts
 // AModule
@@ -491,17 +491,17 @@ export default class AModule {};
 
 *不过全局模块还是尽量少用，不然注入的很多 provider 都不知道来源，会降低代码的可维护性。*
 
-## 13. 生命周期
+### 13. 生命周期
 
-触发顺序都是：先子后父，先深度遍历进去，再一个个触发退出来
+触发顺序都是: 先子后父，先深度遍历进去，再一个个触发退出来
 
 > Controllers -> Providers -> Module
 
 ### 启动时
-onModuleInit、onApplicationBootstrap
+`onModuleInit`、`onApplicationBootstrap`
 
 ### 销毁时
-onModuleDestroy、beforeApplicationShutdown、onApplicationShutdown
+`onModuleDestroy`、`beforeApplicationShutdown`、`onApplicationShutdown`
 
 在定义模块/Controller/Provider时可以实现它
 
@@ -541,17 +541,352 @@ AOP 的好处是可以把一些通用逻辑分离到切面中，保持业务逻�
 
 像 Express 的中间件的洋葱圈模型也是一种 AOP 的实现。
 
-而 Nest 实现 AOP 的方式更多，一共有五种，包括 Middleware、Guard、Pipe、Interceptor、ExceptionFilter：
+而 Nest 实现 AOP 的方式更多，一共有五种，包括 Middleware、Guard、Pipe、Interceptor、ExceptionFilter: 
 
-#### 1）Middleware
+guard、interceptor、middleware、pipe、filter 都是 Nest 的特殊 class，无需通过 Providers 在模块内注入，当你通过 @UseXxx 使用它们的时候，Nest 就会扫描到它们，创建对象它们的对象加到容器里，就已经可以注入依赖了。
+
+#### 1）Middleware 中间件
+
+Nest 的底层是 Express，所以自然也可以使用中间件，但是做了进一步的细分，分为了全局中间件和路由中间件: 
+
+全局中间件就是 Express 的那种中间件，在请求之前和之后加入一些处理逻辑，每个请求都会走到这里: 
+
+```ts
+const app = await NestFactory.create(AppModule)
+app.use(LoggerMiddleware) // 全局中间件
+app.listen(3000)
+```
+
+路由中间件则是针对某个路由来说的，范围更小一些: 
+
+```ts
+// app.module.ts
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { CatsModule } from './cats/cats.module';
+
+@Module({
+  imports: [CatsModule],
+})
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('cats'); // 可以使用forRoutes来限制该中间件的应用 路由/方法 等等 .forRoutes({ path: 'cats', method: RequestMethod.GET }); 也可以直接穿入 Controller 来指定应用范围
+  }
+}
+```
+
+#### 2）Guard 路由守卫 —— 路由切面
+
+**Guard 是路由守卫的意思，可以用于在调用某个 Controller 之前判断权限，返回 true 或者 false 来决定是否放行**
+
+Guard 要实现 `CanActivate` 接口，实现 `canActivate` 方法，可以从 context 拿到请求的信息，然后做一些权限验证等处理之后返回 true 或者 false
+
+通过 @Injectable 装饰器加到 IOC 容器中，然后就可以在某个 Controller 启用了
+
+```ts
+@Injectable()
+export default class RolesGuard implements CanActive {
+  canActive(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+    return true
+  }
+}
+```
+
+Controller 本身不需要做啥修改，却透明的加上了权限判断的逻辑，这就是 AOP 架构的好处。
+
+而且，就像 Middleware 支持全局级别和路由级别一样，Guard 也可以全局启用: 
+
+```ts
+// 全局使用
+const app = ...
+
+app.useGlobalGuards(new RolesGuard())
+
+// Controller 使用
+@Controller('cats')
+@UseGuards(RolesGuard)
+export class CatsController {}
+```
+
+#### 3）Interceptor 拦截器 —— Controller切面
+
+Interceptor 是拦截器的意思，可以在目标 Controller 方法前后加入一些逻辑。（拦截器是使用 @Injectable() 装饰器注解的类。拦截器应该实现 NestInterceptor 接口）
+
+Interceptor 要实现 NestInterceptor 接口，实现 intercept 方法，调用 next.handle() 就会调用目标 Controller，可以在之前和之后加入一些处理逻辑。
+
+```ts
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Injectable()
+export class LoggingInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    console.log('Before...');
+
+    const now = Date.now();
+    return next
+      .handle()
+      .pipe(
+        tap(() => console.log(`After... ${Date.now() - now}ms`)),
+      );
+  }
+}
+```
+
+Interceptor 支持每个路由单独启用，只作用于某个 controller，也同样支持全局启用，作用于全部 controller: 
+
+```ts
+// 局部
+@UseInterceptors(new LoggingInterceptor())
+export class XXXController {}
+
+// 全局
+app.useGlobalInterceptors(new LoggingInterceptor())
+```
+
+**有的同学可能会问：Nest 的 middleware 和 interceptor 都是在请求前后加入一些逻辑的，这俩区别是啥呢？**
+
+1. interceptor 是能从 ExecutionContext 里拿到目标 class 和 handler，进而通过 reflector 拿到它的 metadata 等信息的，这些 middleware 就不可以。
+2. 再就是 interceptor 里是可以用 rxjs 的操作符来组织响应处理流程的
+
+*它们都是 Nest AOP 思想的实现，但是 interceptor 更适合处理与具体业务相关的逻辑，而 middleware 适合更通用的处理逻辑*
+
+#### 4）Pipe 管道 —— 参数切面
+
+Pipe 是管道的意思，用来对参数做一些检验和转换
+
+Pipe 要实现 PipeTransform 接口，实现 transform 方法，里面可以对传入的参数值 value 做参数验证，比如格式、类型是否正确，不正确就抛出异常。也可以做转换，返回转换后的值
+
+内置的有 9 个 Pipe，从名字就能看出它们的意思: 
+
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- DefaultValuePipe
+- ParseEnumPipe
+- ParseFloatPipe
+- ParseFilePipe
+
+同样，Pipe 可以只对某个参数生效，某个路由生效，也可以对每个路由都生效: 
+
+```ts
+// 单个参数生效
+@Get()
+async hello(@Query('age', ParseIntPipe) age: number) {}
+
+// 单个方法/路由
+@Post()
+@UsePipes(ValidationPipe)
+async hello() {}
+
+// 全局
+app.useGlobalPipes(new ValidationPipe())
+```
+
+#### 5）ExceptionFilter 异常过滤器
+
+ExceptionFilter 可以对抛出的异常做处理，返回对应的响应: 
+
+上面有提就不说了
+
+[异常过滤器](#异常过滤器-catch)
+
+#### 五种AOP机制的顺序
+
+Middleware、Guard、Pipe、Interceptor、ExceptionFilter 都可以透明的添加某种处理逻辑到某个路由或者全部路由，这就是 AOP 的好处。
+
+但是它们之间的顺序关系是什么呢？
+
+从源码看，进入路由后会先调用 Guards ，判断权限，如果没有权限就抛出异常了 ->
+如果有权限，就会调用到 Interceptors，拦截器组织了一个链条，一个个的调用，最后会调用到 controller 的方法 ->
+调用 controller 方法之前，会使用 pipe 对参数做处理 ->
+ExceptionFilter 的调用时机很容易想到，就是在响应之前对异常做一次处理。
+而 MiddleWare 则是 express 的概念，Nest 只是继承了下，那个是在最外层被调用。
+
+![AOP机制顺序图](./uploads/AOP_order.awebp)
+
+MVC 就是 Model、View Controller 的划分，请求先经过 Controller，然后调用 Model 层的 Service、Repository 完成业务逻辑，最后返回对应的 View。
+
+IOC 是指 Nest 会自动扫描带有 `@Controller`、@Injectable 装饰器的类，创建它们的对象，并根据依赖关系自动注入它依赖的对象，免去了手动创建和组装对象的麻烦。
+
+AOP 则是把通用逻辑抽离出来，通过切面的方式添加到某个地方，可以复用和动态增删切面逻辑。
+
+Nest 的 Middleware、Guard、Interceptor、Pipe、ExceptionFilter 都是 AOP 思想的实现，只不过是不同位置的切面，它们都可以灵活的作用在某个路由或者全部路由，这就是 AOP 的优势。
+
+### 15. `Metadata`和`Reflector`
+
+> Metadata 是一个 Reflector 的 API，目前还在草案阶段为进入 ES 标准。
+
+`Reflect.defineMetadata` 和 `Reflect.getMetadata` 分别用于设置和获取某个类的元数据，如果最后传入了属性名，还可以单独为某个属性设置元数据。
+
+```ts
+Reflect.defineMetadata(metadataKey, metadataValue, target);
+
+Reflect.defineMetadata(metadataKey, metadataValue, target, propertyKey);
+
+
+let result = Reflect.getMetadata(metadataKey, target);
+
+let result = Reflect.getMetadata(metadataKey, target, propertyKey);
+```
+
+那元数据存在哪呢？
+
+存在类或者对象上呀，如果给类或者类的静态属性添加元数据，那就保存在类上，如果给实例属性添加元数据，那就保存在对象上，用类似 [[metadata]] 的 key 来存的。
+
+该 API 也支持装饰器的使用方式
+
+```ts
+@Reflect.metadata(metadataKey, metadataValue)
+class C {
+
+  @Reflect.metadata(metadataKey, metadataValue)
+  method() {
+    ...
+  }
+}
+```
+
+这就是 nest 的核心实现原理：**通过装饰器给 class 或者对象添加 metadata，并且开启 ts 的 emitDecoratorMetadata 来自动添加类型相关的 metadata，然后运行的时候通过这些元数据来实现依赖的扫描，对象的创建等等功能。**
+
+Nest 的装饰器都是依赖 reflect-metadata 实现的，而且还提供了一个 `@SetMetadata` 的装饰器让我们可以给 class、method 添加一些 metadata
+
+> 可以使用 forwardRef() 函数来导入，以解决循环依赖的问题，这样各个 module之前可以互相 imports 注入了。
+>
+> 它的原理就是 nest 会先创建 Module、Provider，之后再把引用转发到对方，也就是 forward ref。
+
+### 16. 动态 Module
+
+Module 可以传入 options 动态产生，这叫做动态 Module，你还可以把传入的 options 作为 provider 注入到别的对象里。
+
+建议的动态产生 Module 的方法名有 register、forRoot、forFeature 3种。
+
+- register：用一次注册一次
+- forRoot：只注册一次，用多次，一般在 AppModule 引入
+- forFeature：用了 forRoot 之后，用 forFeature 传入局部配置，一般在具体模块里 imports
+
+并且这些方法都可以写 xxxAsync 版本，也就是传入 useFactory 等 option，内部注册异步 provider。
+
+这个过程也可以用 ConfigurableModuleBuilder 来生成。通过 setClassMethodName 设置方法名，通过 setExtras 设置额外的 options 处理逻辑。
+
+并且返回的 class 都有 xxxAsync 的版本。
+
+这就是动态模块的定义方式，后面用到 typeorm、mongoose 等模块会大量见到这种模块。
+
+> PS：动态模块要说用的地方多呢，也多。要说少呢，也少。比如你有不同的邮件发送渠道（阿里云，SES等），如果有个需求是需要支持多种邮件发送渠道，当某一个主渠道不可用的情况下，使用备用渠道发送邮件，这时候就可以创建一个MailModule(channel: string)的动态邮件发送渠道
+
+
+
+## 内置装饰器汇总
+
+- `@Module`:  声明 Nest 模块
+- `@Controller`: 声明模块里的 controller
+- `@Injectable`: 声明模块里可以注入的 provider
+- `@Inject`: 通过 token 手动指定注入的 provider，token 可以是 class 或者 string
+- `@Optional`: 声明注入的 provider 是可选的，可以为空
+- `@Global`: 声明全局模块
+- `@Catch`: 声明 exception filter 处理的 exception 类型
+- `@UseFilters`: 路由级别使用 exception filter
+- `@UsePipes`: 路由级别使用 pipe
+- `@UseInterceptors`: 路由级别使用 interceptor
+- `@SetMetadata`: 在 class 或者 handler 上添加 metadata
+- `@Get`、`@Post`、`@Put`、`@Delete`、`@Patch`、`@Options`、`@Head`: 声明 get、post、put、delete、patch、options、head 的请求方式
+- `@Param`: 取出 url 中的参数，比如 /aaa/:id 中的 id
+- `@Query`: 取出 query 部分的参数，比如 /aaa?name=xx 中的 name
+- `@Body`: 取出请求 body，通过 dto class 来接收
+- `@Headers`: 取出某个或全部请求头
+- `@Session`: 取出 session 对象，需要启用 express-session 中间件
+- `@HostParm`:  取出 host 里的参数
+- `@Req`、`@Request`: 注入 request 对象
+- `@Res`、`@Response`: 注入 response 对象，一旦注入了这个 Nest 就不会把返回值作为响应了，除非指定 passthrough 为true
+- `@Next`: 注入调用下一个 handler 的 next 方法
+- `@HttpCode`:  修改响应的状态码
+- `@Header`: 修改响应头
+- `@Redirect`: 指定重定向的 url
+- `@Render`: 指定渲染用的模版引擎
+
+### 自定义装饰器
+
+1. 路由装饰器，如设置 Metadata 等的：
+
+```ts
+// setRole.ts
+import { SetMetadata } from '@nestjs/common'
+
+export const SetRole = (roles: Role[]) => SetMetadata('role', roles);
+
+// xx.controller.ts
+...
+@Controller()
+export class XXController {
+  ...
+  @SetRole('admin') // ===> SetMetadata('role', 'admin') 封装了这个方法
+	@UseGuards(RoleGuard)
+	getList(...) {...}
+}
+
+// roleGuard.ts
+...
+// 获取设置的 role
+const requiredRoles = this.reflector.get<Role[]>('role', context.getHandler());
+...
+```
+
+2. 聚合装饰器
+
+很多情况下针对某个路由 handler 我们都会使用多个装饰器，如果这一组装饰器多处重复，这可以使用自定义装饰器来把它们合成一个进行聚合：
+
+```ts
+// 未聚合前
+@Get('list')
+@SetRole('admin')
+@UseGuards(RoleGuard)
+getList(...) {...}
+
+// 自定义装饰器
+import {
+  Get,
+  applyDecorators,
+  CanActivate
+} from '@nestjs/common';
+import {SetRole} from '...'
+
+export const Myd = (path: string, role: string, guard: CanActivate) =>
+  applyDecorators(Get(path), SetRole(role), UseGuards(guard));
+
+// 使用自定义装饰器
+@Myd('list', 'admin', RoleGuard)
+getList(...) {...}
+
+```
+
+3. 参数装饰器
+
+自定义类似@Param这些的参数装饰器
+
+```ts
+// 自定义一个 MyHeaders 的装饰器来取出 req 中的 header
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { Request } from 'express';
+
+export const MyHeaders = createParamDecorator(
+  (key: string, ctx: ExecutionContext) => {
+    const request: Request = ctx.switchToHttp().getRequest();
+    return key ? request.headers[key.toLowerCase()] : request.headers;
+  },
+);
+
+// 使用
+@Get('list')
+getList(@MyHeaders('Accept') accept: string) {...}
+```
+
+
 
 ## 架构组织
-
-博客系统API：
-
-1. 用户模块
-
-2. 文章模块
-
-3. 评论模块
 
